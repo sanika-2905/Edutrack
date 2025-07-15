@@ -1,0 +1,82 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+  background-color: #e6ffe6;
+  color: #000;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: darkgreen;
+  color: white;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+.toggle-icon {
+  cursor: pointer;
+  font-size: 1.8em;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.button-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+  width: 300px;
+}
+
+.box {
+  padding: 25px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.2em;
+  text-decoration: none;
+  color: white;
+  border-radius: 15px;
+  box-shadow: 4px 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.box:hover {
+  transform: translateY(-5px);
+  box-shadow: 6px 6px 16px rgba(0,0,0,0.25);
+}
+
+.box1 { background-color: #4CAF50; }
+.box2 { background-color: #FF5722; }
+.box3 { background-color: #3F51B5; }
+.box4 { background-color: #9C27B0; }
+.box5 { background-color: #FF9800; }
+
+/* Dark mode */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode header {
+  background-color: #093409;
+}
+
+body.dark-mode .box {
+  color: #fff;
+  opacity: 0.95;
+}

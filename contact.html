@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us | EduTracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #d4fc79, #96e6a1);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2e7d32;
+      margin-bottom: 30px;
+    }
+
+    .section {
+      margin-bottom: 25px;
+    }
+
+    .section h2 {
+      font-size: 20px;
+      color: #388e3c;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    .section p, .section a {
+      margin: 8px 0;
+      font-size: 15px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .section i {
+      color: #2e7d32;
+      margin-right: 8px;
+    }
+
+    .two-column {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .left, .right {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    form button {
+      padding: 12px 25px;
+      background-color: #2e7d32;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    form button:hover {
+      background-color: #1b5e20;
+    }
+
+    iframe {
+      width: 100%;
+      border-radius: 15px;
+    }
+
+    .social a {
+      text-decoration: none;
+      margin-right: 12px;
+      font-size: 18px;
+      color: #2e7d32;
+      transition: transform 0.3s;
+    }
+
+    .social a:hover {
+      transform: scale(1.2);
+    }
+
+    @media (max-width: 768px) {
+      .two-column {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>📞 Contact Us – EduTracker</h1>
+
+    <div class="section">
+      <h2>🏫 Institute Information</h2>
+      <p><i class="fas fa-school"></i> <strong>Greenfield Institute of Technology</strong></p>
+      <p><i class="fas fa-map-marker-alt"></i> Plot No. 12, Knowledge Park, Viman Nagar, Pune – 411014</p>
+      <p><i class="fas fa-phone"></i> +91 020-24242424 | <i class="fas fa-phone-alt"></i> +91 9876543210 (Emergency)</p>
+      <p><i class="fas fa-envelope"></i> info@greenfield.edu.in | admissions@greenfield.edu.in</p>
+    </div>
+
+    <div class="section">
+      <h2>👤 Key Personnel</h2>
+      <p><i class="fas fa-user-tie"></i> Principal – Dr. Neha Sharma: principal@greenfield.edu.in</p>
+      <p><i class="fas fa-user-cog"></i> Admin Office – admin@greenfield.edu.in</p>
+      <p><i class="fas fa-user-graduate"></i> Admission Office – admissions@greenfield.edu.in</p>
+      <p><i class="fas fa-tools"></i> Technical Support – support@edutracker.app</p>
+    </div>
+
+    <div class="section">
+      <h2>⏰ Office Hours</h2>
+      <p><i class="fas fa-clock"></i> Monday – Saturday: 9:00 AM – 5:00 PM</p>
+    </div>
+
+    <div class="section">
+      <h2>🌐 Social Media</h2>
+      <p class="social">
+        <a href="#"><i class="fab fa-facebook-square"></i></a>
+        <a href="#"><i class="fab fa-instagram-square"></i></a>
+        <a href="#"><i class="fab fa-twitter-square"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </p>
+    </div>
+
+    <div class="two-column">
+      <div class="left section">
+        <h2>📩 Get in Touch</h2>
+        <form>
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Your Email" required>
+          <input type="text" placeholder="Subject">
+          <textarea rows="5" placeholder="Your Message" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+
+      <div class="right section">
+        <h2>📍 Find Us on Map</h2>
+        <iframe src="https://maps.google.com/maps?q=Viman%20Nagar%20Pune&t=&z=13&ie=UTF8&iwloc=&output=embed"
+          height="300" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

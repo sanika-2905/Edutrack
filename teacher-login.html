@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EduTracker | Teacher Login</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #e6f4ea;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #f0fdf4;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2d6a4f;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #52b788;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2d6a4f;
+    }
+
+    .switch {
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .switch a {
+      color: #40916c;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #1b4332;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="loginBox">
+    <div class="logo">📚 EduTracker</div>
+    <h2>Teacher Login</h2>
+    <form onsubmit="return handleLogin(event)">
+      <input type="text" id="username" placeholder="Enter username" required />
+      <input type="password" id="password" placeholder="Enter password" required />
+      <button type="submit">Login</button>
+    </form>
+    <div class="switch">Don't have an account? <a onclick="toggleForms()">Sign up</a></div>
+    <div class="error" id="loginError"></div>
+  </div>
+
+  <div class="container hidden" id="signupBox">
+    <div class="logo">📚 EduTracker</div>
+    <h2>Teacher Signup</h2>
+    <form onsubmit="return handleSignup(event)">
+      <input type="text" id="signupUsername" placeholder="Create username" required />
+      <input type="password" id="signupPassword" placeholder="Create password" required />
+      <button type="submit">Sign Up</button>
+    </form>
+    <div class="switch">Already registered? <a onclick="toggleForms()">Login</a></div>
+    <div class="error" id="signupError"></div>
+  </div>
+
+  <script>
+    function toggleForms() {
+      document.getElementById('loginBox').classList.toggle('hidden');
+      document.getElementById('signupBox').classList.toggle('hidden');
+      document.getElementById('loginError').textContent = '';
+      document.getElementById('signupError').textContent = '';
+    }
+
+    const users = {
+      "teacher1": "pass123",
+      "sanika": "abc123"
+    };
+
+    function handleLogin(event) {
+      event.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const errorBox = document.getElementById("loginError");
+
+      if (users[username] && users[username] === password) {
+        window.location.href = "teacher_dashboard.html";
+      } else {
+        errorBox.textContent = "Invalid username or password!";
+      }
+    }
+
+    function handleSignup(event) {
+      event.preventDefault();
+      const newUser = document.getElementById("signupUsername").value;
+      const newPass = document.getElementById("signupPassword").value;
+      const errorBox = document.getElementById("signupError");
+
+      if (users[newUser]) {
+        errorBox.textContent = "Username already exists!";
+      } else {
+        users[newUser] = newPass;
+        alert("Signup successful! Please login.");
+        toggleForms();
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
+<script>
+    function goBack() {
+      window.location.href = "teacher_login.html";
+    }
+  </script>

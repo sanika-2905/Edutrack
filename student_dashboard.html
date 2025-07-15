@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EduTracker | Student Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      background: linear-gradient(to right, #e0f7fa, #caf0f8);
+    }
+
+    .sidebar {
+      width: 240px;
+      background-color: #1d3557;
+      color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .nav-item {
+      padding: 12px 20px;
+      margin: 10px 0;
+      background-color: #457b9d;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .nav-item:hover {
+      background-color: #a8dadc;
+      color: #1d3557;
+    }
+
+    .main {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    .header {
+      font-size: 28px;
+      color: #1d3557;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      display: none;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .card {
+      background: #f1faee;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .flowchart {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .node {
+      background-color: #a8dadc;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      width: 140px;
+      margin: 10px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .node.absent {
+      background-color: #f28482;
+      color: white;
+    }
+
+    .node:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -15px;
+      width: 30px;
+      height: 2px;
+      background-color: #333;
+    }
+
+    .absence-log {
+      background: #ffe5ec;
+      border-left: 5px solid #f28482;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+
+    .absence-log h4 {
+      margin-bottom: 10px;
+      color: #c1121f;
+    }
+
+    .logout {
+      margin-top: auto;
+      text-align: center;
+    }
+
+    .logout button {
+      padding: 10px 20px;
+      background-color: #e63946;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .logout button:hover {
+      background-color: #ff6b6b;
+    }
+
+    .export-btn {
+      margin-top: 10px;
+      background-color: #06d6a0;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .export-btn:hover {
+      background-color: #118ab2;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>EduTracker</h2>
+    <div class="nav-item" onclick="showSection('attendance')">Attendance</div>
+    <div class="nav-item" onclick="showSection('assignments')">Assignments</div>
+    <div class="nav-item" onclick="showSection('marks')">Marks</div>
+    <div class="nav-item" onclick="showSection('lectures')">Lectures</div>
+    <div class="logout">
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="header" id="welcomeMsg">Welcome, Student!</div>
+
+    <div id="attendance" class="section active">
+      <div class="card" id="attendanceCard">
+        <h3>Attendance Summary</h3>
+        <p>Overall: 85%</p>
+
+        <label for="subjectFilter">Filter by subject:</label>
+        <select id="subjectFilter" onchange="filterAttendance()">
+          <option value="All">All</option>
+        </select>
+
+        <h4>Lecture-wise Attendance:</h4>
+        <div class="flowchart" id="flowchartContainer"></div>
+
+        <div class="absence-log" id="absenceLog">
+          <h4>Absent History</h4>
+          <ul id="absenceList"></ul>
+        </div>
+
+        <canvas id="attendanceChart" width="300" height="300"></canvas>
+
+        <button class="export-btn" onclick="exportToPDF()">📄 Export PDF</button>
+      </div>
+    </div>
+
+    <div id="assignments" class="section">
+      <div class="card">
+        <h3>Assignments</h3>
+        <p>2 Pending | 5 Submitted</p>
+      </div>
+    </div>
+
+    <div id="marks" class="section">
+      <div class="card">
+        <h3>Marks</h3>
+        <p>Recent: 78/100</p>
+        <p>Average: 81%</p>
+      </div>
+    </div>
+
+    <div id="lectures" class="section">
+      <div class="card">
+        <h3>Upcoming Lecture</h3>
+        <p>DBMS at 10:30 AM</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const username = localStorage.getItem("studentUser") || "Student";
+    document.getElementById("welcomeMsg").textContent = `Welcome, ${username}!`;
+
+    function showSection(sectionId) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+    }
+
+    function logout() {
+      localStorage.removeItem("studentUser");
+      window.location.href = "student_login.html";
+    }
+
+    const attendanceData = {
+      Maths: { status: 'Present', date: '2025-07-14' },
+      DBMS: { status: 'Absent', date: '2025-07-14' },
+      OS: { status: 'Present', date: '2025-07-14' },
+      DSA: { status: 'Present', date: '2025-07-14' }
+    };
+
+    const subjectFilter = document.getElementById("subjectFilter");
+    const flowchartContainer = document.getElementById("flowchartContainer");
+    const absenceList = document.getElementById("absenceList");
+    const ctx = document.getElementById('attendanceChart').getContext('2d');
+
+    let presentCount = 0;
+    let absentCount = 0;
+
+    function renderAttendance() {
+      flowchartContainer.innerHTML = '';
+      absenceList.innerHTML = '';
+      presentCount = 0;
+      absentCount = 0;
+      for (let subject in attendanceData) {
+        if (subjectFilter.value !== 'All' && subjectFilter.value !== subject) continue;
+        const entry = attendanceData[subject];
+        const div = document.createElement("div");
+        div.className = "node" + (entry.status === 'Absent' ? " absent" : "");
+        div.innerHTML = `${subject}<br><strong>${entry.status}${entry.status === 'Absent' ? ' ❌' : ''}</strong>`;
+        flowchartContainer.appendChild(div);
+
+        if (entry.status === 'Absent') {
+          const li = document.createElement("li");
+          li.textContent = `${subject} - Absent on ${entry.date}`;
+          absenceList.appendChild(li);
+          notifyParent(username, subject);
+          absentCount++;
+        } else {
+          presentCount++;
+        }
+      }
+    }
+
+    function populateFilter() {
+      for (let subject in attendanceData) {
+        const option = document.createElement("option");
+        option.value = subject;
+        option.textContent = subject;
+        subjectFilter.appendChild(option);
+      }
+    }
+
+    function exportToPDF() {
+      const element = document.getElementById("attendanceCard");
+      html2pdf().from(element).save("Attendance_Report.pdf");
+    }
+
+    function notifyParent(studentName, subject) {
+      console.log(`Sending message to parent: ${studentName} was absent for ${subject}.`);
+    }
+
+    function drawChart() {
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Present', 'Absent'],
+          datasets: [{
+            data: [presentCount, absentCount],
+            backgroundColor: ['#06d6a0', '#f28482']
+          }]
+        },
+        options: {
+          plugins: {
+            legend: { position: 'bottom' }
+          }
+        }
+      });
+    }
+
+    function filterAttendance() {
+      renderAttendance();
+      drawChart();
+    }
+
+    populateFilter();
+    renderAttendance();
+    drawChart();
+  </script>
+</body>
+</html>

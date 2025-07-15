@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EduTracker | Student Login</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #a8dadc, #457b9d);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #f1faee;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 380px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      color: #1d3557;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #1d3557;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #1d3557;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #457b9d;
+    }
+
+    .switch {
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .switch a {
+      color: #1d3557;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      font-size: 14px;
+      margin-top: -5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="loginBox">
+    <div class="logo">🎓 EduTracker</div>
+    <h2>Student Login</h2>
+    <form onsubmit="return handleLogin(event)">
+      <input type="text" id="username" placeholder="Enter username" required />
+      <input type="password" id="password" placeholder="Enter password" required />
+      <button type="submit">Login</button>
+    </form>
+    <div class="switch">Don't have an account? <a onclick="toggleForms()">Sign up</a></div>
+    <div class="error" id="loginError"></div>
+  </div>
+
+  <div class="container hidden" id="signupBox">
+    <div class="logo">🎓 EduTracker</div>
+    <h2>Student Signup</h2>
+    <form onsubmit="return handleSignup(event)">
+      <input type="text" id="signupUsername" placeholder="Create username" required />
+      <input type="password" id="signupPassword" placeholder="Create password" required />
+      <button type="submit">Sign Up</button>
+    </form>
+    <div class="switch">Already registered? <a onclick="toggleForms()">Login</a></div>
+    <div class="error" id="signupError"></div>
+  </div>
+
+  <script>
+    function toggleForms() {
+      document.getElementById('loginBox').classList.toggle('hidden');
+      document.getElementById('signupBox').classList.toggle('hidden');
+      document.getElementById('loginError').textContent = '';
+      document.getElementById('signupError').textContent = '';
+    }
+
+    const users = {
+      "student1": "pass123",
+      "sanika": "abc123"
+    };
+
+    function handleLogin(event) {
+      event.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const errorBox = document.getElementById("loginError");
+
+      if (users[username] && users[username] === password) {
+        localStorage.setItem("studentUser", username); // save name for dashboard
+        window.location.href = "student_dashboard.html";
+      } else {
+        errorBox.textContent = "Invalid username or password!";
+      }
+    }
+
+    function handleSignup(event) {
+      event.preventDefault();
+      const newUser = document.getElementById("signupUsername").value;
+      const newPass = document.getElementById("signupPassword").value;
+      const errorBox = document.getElementById("signupError");
+
+      if (users[newUser]) {
+        errorBox.textContent = "Username already exists!";
+      } else {
+        users[newUser] = newPass;
+        alert("Signup successful! Please login.");
+        toggleForms();
+      }
+    }
+  </script>
+</body>
+</html>

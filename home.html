@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Home | EduTracker College</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    /* Reset & base */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #d4fc79, #96e6a1);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navbar */
+    nav {
+      background-color: #2e7d32;
+      padding: 15px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+    nav ul li {
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    nav ul li:hover {
+      color: #a5d6a7;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
+      height: 400px;
+      border-radius: 20px;
+      margin: 40px auto 30px;
+      max-width: 1100px;
+      position: relative;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 40px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin: 0 0 10px 0;
+      font-weight: 700;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 600px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+      margin-bottom: 20px;
+    }
+    .hero .btn {
+      background-color: #81c784;
+      color: #fff;
+      padding: 12px 28px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: max-content;
+      box-shadow: 0 5px 15px rgba(129,199,132,0.6);
+      transition: background-color 0.3s ease;
+    }
+    .hero .btn:hover {
+      background-color: #66bb6a;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto 60px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px 40px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+      flex-grow: 1;
+    }
+
+    h2 {
+      font-size: 24px;
+      color: #388e3c;
+      margin-bottom: 20px;
+      border-bottom: 3px solid #a5d6a7;
+      padding-bottom: 10px;
+      font-weight: 700;
+    }
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    /* Info Boxes Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+    .info-box {
+      background-color: #e8f5e9;
+      border-radius: 15px;
+      padding: 25px 20px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .info-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    .info-box i {
+      font-size: 36px;
+      color: #2e7d32;
+      margin-bottom: 12px;
+    }
+    .info-box h3 {
+      margin: 0;
+      font-weight: 700;
+      color: #2e7d32;
+      font-size: 20px;
+    }
+
+    /* Achievements & Events */
+    .section-row {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+    .section-box {
+      flex: 1 1 48%;
+      background-color: #e8f5e9;
+      border-radius: 15px;
+      padding: 25px 30px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+      color: #2e7d32;
+    }
+    .section-box h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+    .section-box ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+    .section-box ul li {
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #2e7d32;
+      color: #c8e6c9;
+      text-align: center;
+      padding: 15px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
+      margin-top: auto;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        padding: 12px 20px;
+      }
+      nav ul {
+        gap: 20px;
+      }
+      .hero {
+        height: 300px;
+        padding-left: 25px;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+        max-width: 100%;
+      }
+      .container {
+        padding: 25px 20px;
+        margin: 20px 10px 60px;
+      }
+      .section-row {
+        flex-direction: column;
+      }
+      .section-box {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+   
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="logo">EduTracker College</div>
+    <ul>
+      <li><a href="index.html" style="color:#a5d6a7; font-weight:700;">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="admissions.html">Admissions</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Welcome to EduTracker College</h1>
+    <p>Empowering Future Leaders Through Quality Education & Innovation</p>
+    <button class="btn" onclick="location.href='admissions.html'">Apply Now</button>
+  </section>
+
+  <!-- Main Content Container -->
+  <div class="container">
+
+    <!-- Quick Info Boxes -->
+    <div class="info-grid">
+      <div class="info-box">
+        <i class="fas fa-book"></i>
+        <h3>Courses Offered</h3>
+        <p>Engineering, Management, Science, Arts, and more.</p>
+      </div>
+      <div class="info-box">
+        <i class="fas fa-file-signature"></i>
+        <h3>Admission Process</h3>
+        <p>Simple online application and eligibility checks.</p>
+      </div>
+      <div class="info-box">
+        <i class="fas fa-graduation-cap"></i>
+        <h3>Scholarships</h3>
+        <p>Merit-based & need-based financial aid available.</p>
+      </div>
+      <div class="info-box">
+        <i class="fas fa-briefcase"></i>
+        <h3>Placements</h3>
+        <p>Strong ties with leading companies for internships & jobs.</p>
+      </div>
+      <div class="info-box">
+        <i class="fas fa-building"></i>
+        <h3>Facilities</h3>
+        <p>Modern labs, library, hostels, sports, and more.</p>
+      </div>
+    </div>
+
+    <!-- Achievements & Upcoming Events -->
+    <div class="section-row">
+      <div class="section-box">
+        <h3>Achievements & Highlights</h3>
+        <ul>
+          <li>University Rankers & Award Winners</li>
+          <li>Research Projects & Innovation Labs</li>
+          <li>NAAC Accredited & Certified Excellence</li>
+          <li>Successful Alumni in Industry & Academia</li>
+        </ul>
+      </div>
+      <div class="section-box">
+        <h3>Upcoming Events</h3>
+        <ul>
+          <li>Annual Cultural Fest - 15th August</li>
+          <li>Tech Symposium - 10th September</li>
+          <li>Guest Lectures & Workshops</li>
+          <li>Orientation for New Students</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- About Short -->
+    <section>
+      <h2>About EduTracker College</h2>
+      <p>EduTracker College is committed to providing world-class education with a focus on innovation, research, and student success. Our experienced faculty and modern infrastructure ensure a holistic learning environment.</p>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 EduTracker College. All rights reserved.
+  </footer>
+
+</body>
+</html>
